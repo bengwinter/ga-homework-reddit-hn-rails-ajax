@@ -1,5 +1,5 @@
 WdiHackerNews::Application.routes.draw do
 
-  root 'posts#index'
+  root 'stories#index'
 
 end
