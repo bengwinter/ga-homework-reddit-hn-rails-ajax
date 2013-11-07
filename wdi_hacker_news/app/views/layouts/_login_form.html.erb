@@ -1,5 +1,6 @@
 <% if !current_user %>
-<div class="signup">
+  <div class="signup">
+    <h1>Register </h1>
     <%= form_for @user do |f| %>
     <% if @user.errors.any? %>
     <div class='error_messages'>
@@ -10,14 +11,21 @@
         <% end %>
       </ul>
       <% end %>
-
-      <%= f.text_field :email, placeholder: 'blake@wine.com' %>
-      <%= f.password_field :password, placeholder: 'password' %>
-      <%= f.submit "Register" %>
+        <%= f.text_field :email, placeholder: 'blake@wine.com' %>
+        <%= f.password_field :password, placeholder: 'password' %>
+        <%= f.submit "Register" %>
     </div>
-  <% end %>
+     <h1>Login</h1>
+    <%= form_tag sessions_path do %> 
+      <%= text_field_tag :email, nil, placeholder: 'blake@wine.com' %>
+      <%= password_field_tag :password, nil, placeholder: 'password' %>
+      <%= submit_tag "Log In" %>
+    <% end %> 
+    <% end %>
   <% else %>
-  <div id='head'>
-    <span id='wdinews'><a href="/">WDI NEWS</a></span><span id='menu'><a href="/new">submit</a></span>
-  </div> 
+    <p> BLAKE LOVES WINE</p>
+    <h1>My Account</h1>
+    <h2>Logged in as <%= current_user.email %></h2>
+    <div class="button"><%= link_to "Log Out", log_out_path %></div>&nbsp;
+    <div class="button"><%= link_to "Delete User", delete_user_path %></div>&nbsp;
 <% end %>
