@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20131107212048) do
   create_table "stories", force: true do |t|
     t.string   "title"
     t.string   "url"
+    t.string   "body"
     t.integer  "up_votes",   default: 0
     t.integer  "user_id"
     t.datetime "created_at"

@@ -2,7 +2,7 @@ var Hacker = {};
 
 Hacker.getStories = function() {
   $.ajax({
-    url: '/Stories.json',
+    url: '/stories.json',
     dataType: 'json',
     success: function(data) {
       Hacker.renderStories(data);
@@ -10,7 +10,7 @@ Hacker.getStories = function() {
   });
 };
 
-Hacker.createstory = function() {
+Hacker.createStory = function() {
   var title = $('#story-title-field').val();
   var link = $('#story-link-field').val();
   var body = $('#story-body-field').val();
@@ -18,10 +18,9 @@ Hacker.createstory = function() {
   $('#story-link-field').val('');
   $('#story-body-field').val('');
   $.ajax({
-    url: '/Stories/create',
+    url: '/stories/create',
     type: 'story',
     data: {title: title, link: link, body: body},
-    dataType: 'json',
     success: function(data) {
       $('#Stories').append("<div id='story-" + data.id + "'> <img src='https://news.ycombinator.com/grayarrow.gif' alt='up arrow' class='' /> <span class='story-title'>" + data.title + "</span> </div>");
       Hacker.setstoryHandler(data.id);
@@ -29,11 +28,11 @@ Hacker.createstory = function() {
   });
 };
 
-Hacker.setstoryHandler = function(story_id) {
+Hacker.setStoryHandler = function(story_id) {
   $('#story-' + story_id).click(function(e){
     e.preventDefault();
     $.ajax({
-      url: '/Stories/' + story_id, 
+      url: '/stories/' + story_id, 
       dataType: 'json',
       success: function(data) {
         if($('#single-story-' + data.id).length === 0) {
@@ -47,7 +46,7 @@ Hacker.setstoryHandler = function(story_id) {
 
 Hacker.renderStories = function(data) {
   $(data).each(function(index, story) {
-    $('#Stories').append("<div id='story-" + story.id + "'> <img src='https://news.ycombinator.com/grayarrow.gif' alt='up arrow' /> <span class='story-title'>" + story.title + "</span> </div>");
+    $('#stories').append("<div id='story-" + story.id + "'> <img src='https://news.ycombinator.com/grayarrow.gif' alt='up arrow' /> <span class='story-title'>" + story.title + "</span> </div>");
   });
 };
 
@@ -59,6 +58,6 @@ $(document).ready(function() {
   Hacker.getStories();
   $('#story-create-button').click(function(e) {
     e.preventDefault();
-    Hacker.createstory();
+    Hacker.createStory();
     })
 });
