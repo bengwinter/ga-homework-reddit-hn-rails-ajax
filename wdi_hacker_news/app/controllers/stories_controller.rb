@@ -38,7 +38,7 @@ class StoriesController < ApplicationController
   end
 
   def upvote
-
+    @story = Story.find([:id]).to_json
   end
 
   private

@@ -1,7 +1,7 @@
 <ul id="stories">
   <% @stories.each do |story| %>
   <li>
-  <a href="/upvote/<%= story.id %>"><img class='upvote' src="https://news.ycombinator.com/grayarrow.gif" alt="up arrow" /></a>
+  <%= link_to '<img src="https://news.ycombinator.com/grayarrow.gif" alt="up arrow" />', upvote_path, id: 'upvote_link', remote: true %>
   <a href="<%= story.url %>"><%= story.title %></a><br />
     <span class='small_gray'>
       <%= story.up_votes %> | <%= story.created_at %> | <a href="/<%=story.id %>/delete">DELETE</a> | <a href="/<%= story.id %>/edit">EDIT</a> | <a href="/item/<%= story.id %>"><%= story.comments.count %> Comments</a>
