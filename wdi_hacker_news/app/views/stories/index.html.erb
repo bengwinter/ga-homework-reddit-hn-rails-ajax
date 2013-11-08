@@ -1,13 +1,16 @@
-<div class='content'>
-  <div class='stories-div'>
-    <div id="posts">
-    </div>
-    <h3>Create New Story</h3>
-    <form id="story-form">
-      <input name="title" type="text" id="story-title-field"/>
-      <input name="url" type="text" id="story-link-field"/>
-      <input name="body" type="text" id="story-body-field"/>
-      <button id="story-create-button">Submit</button>
-    </form>
-  </div>
-</div>
+<ul id="stories">
+  <% @stories.each do |story| %>
+  <li>
+  <a href="/upvote/<%= story.id %>"><img src="https://news.ycombinator.com/grayarrow.gif" alt="up arrow" /></a>
+  <a href="<%= story.url %>"><%= story.title %></a><br />
+    <span class='small_gray'>
+      <%= story.up_votes %> | <%= story.created_at %> | <a href="/<%=story.id %>/delete">DELETE</a> | <a href="/<%= story.id %>/edit">EDIT</a> | <a href="/item/<%= story.id %>"><%= story.comments.count %> Comments</a>
+  </span>
+</li>
+  <% end %>
+
+</ul>
+<% if !current_user %>
+<% else %>
+  <%= link_to 'New Story', new_story_path, id: 'new_link', remote: true %>
+<% end %>

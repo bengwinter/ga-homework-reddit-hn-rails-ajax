@@ -1,7 +1,9 @@
 class StoriesController < ApplicationController
+  before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def index
     @user = User.new
+    @stories = Story.all
   end
 
   # post '/posts/create' do
@@ -11,6 +13,9 @@ class StoriesController < ApplicationController
   # get '/posts/:id' do
   #   Story.find(params[:id]).to_json 
   # end
+  def new
+    @story = Story.new
+  end
 
   def list_stories 
     Story.all.to_json
@@ -30,5 +35,16 @@ class StoriesController < ApplicationController
         format.js
       end
     end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+  def set_story
+    @story = Story.find(params[:id])
+  end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+  def story_params
+      params.require(:story).permit(:title, :url, :body)
   end
 end
